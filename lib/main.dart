@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(
+    home: new Home(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => new _MyHomePageState();
+}
+
+class _MyHomePageState extends State<Home> {
   // This widget is the root of your application.
   String jk = "";
   String dropdownValue = 'Teknologi Informasi';
+
+  void pilihJk(String value) {
+    setState(() {
+      jk = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -128,9 +142,4 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-
-  void pilihJk(String value) {
-    setState(() {
-      jk = value;
-    });
-  }
+}
