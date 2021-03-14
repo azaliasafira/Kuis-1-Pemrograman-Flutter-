@@ -15,6 +15,12 @@ class _MyHomePageState extends State<Home> {
   // This widget is the root of your application.
   String jk = "";
   String dropdownValue = 'Teknologi Informasi';
+  String nimRecord = "";
+  List<String> listViewItem = List<String>();
+
+  TextEditingController nimInput = new TextEditingController();
+  TextEditingController nameInput = new TextEditingController();
+  TextEditingController addressInput = new TextEditingController();
 
   void pilihJk(String value) {
     setState(() {
@@ -41,6 +47,7 @@ class _MyHomePageState extends State<Home> {
               child: Column(
                 children: <Widget>[
                   TextFormField(
+                    controller: nimInput,
                     decoration: InputDecoration(
                         labelText: 'NIM', hintText: 'masukan nim'),
                     keyboardType: TextInputType.numberWithOptions(
@@ -49,11 +56,13 @@ class _MyHomePageState extends State<Home> {
                     ),
                   ),
                   TextFormField(
+                    controller: nameInput,
                     decoration: InputDecoration(
                         labelText: 'Nama Lengkap ',
                         hintText: 'masukan nama lengkap'),
                   ),
                   TextFormField(
+                    controller: addressInput,
                     maxLines: 2,
                     decoration: InputDecoration(
                         labelText: 'Alamat', hintText: 'masukan alamat'),
@@ -120,20 +129,45 @@ class _MyHomePageState extends State<Home> {
                   Column(
                     children: <Widget>[
                       Padding(
-                        padding: EdgeInsets.all(15),
+                        padding: EdgeInsets.only(top: 10, bottom: 10),
                         child: new ButtonBar(
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             RaisedButton(
                               child: new Text('Create'),
                               color: Colors.blueAccent,
-                              onPressed: () {/** */},
+                              onPressed: () {
+                                setState(() {});
+                                listViewItem.add(
+                                    "NIM:${nimInput.text}\nNama:${nameInput.text}\nAlamat:${addressInput.text}\nJenis Kelamin:${jk}\nJurusan:${dropdownValue}");
+                                print(nimInput.text);
+                                nimInput.clear();
+                                nameInput.clear();
+                                addressInput.clear();
+                              },
                             ),
                           ],
                         ),
                       ),
                     ],
                   ),
+                  Container(
+                    margin: EdgeInsets.only(top: 10, bottom: 10),
+                    child: Text(
+                      "Data Riwayat Mahasiswa",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: listViewItem.map((String value) {
+                        return Container(
+                            margin: EdgeInsets.all(10),
+                            child: Text(
+                              value,
+                              style: TextStyle(fontSize: 15),
+                            ));
+                      }).toList()),
                 ],
               ),
             )
